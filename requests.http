@@ -1,0 +1,11 @@
+# Get health status
+GET http://localhost:3000/health
+
+# Create one User
+POST http://localhost:3000/users 
+  -H "Content-Type: application/json" 
+  -d '{"email":"alice@example.com","name":"Alice"}'
+
+
+# Get All Users
+GET http://localhost:3000/users  

@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: collab-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: collab_user
+      POSTGRES_PASSWORD: collab_pass
+      POSTGRES_DB: collab_bff
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U collab_user -d collab_bff || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  postgres_data:
