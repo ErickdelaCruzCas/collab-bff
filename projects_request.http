@@ -1,0 +1,60 @@
+### Login
+# @name login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "erick@rock.com",
+  "password": "password123"
+}
+
+### Token
+@token = {{login.response.body.accessToken}}
+
+### Get ME
+GET http://localhost:3000/auth/me
+Authorization: Bearer {{token}}
+
+### Create one User
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "erick@rock.com",
+  "name": "Erick of the Castillian Cross"
+}
+
+### Create project
+POST http://localhost:3000/projects
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Marta & Erick",
+  "description": "First project managed by our Dubín"
+}
+
+### Get all projects
+GET http://localhost:3000/projects
+Authorization: Bearer {{token}}
+
+### Get project By Id
+GET http://localhost:3000/projects/1
+Authorization: Bearer {{token}}
+
+### Update project By Id
+PATCH http://localhost:3000/projects/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "description": "Updated description"
+}
+
+### Delete project By Id
+DELETE http://localhost:3000/projects/1
+Authorization: Bearer {{token}}
+
+### Get health status
+GET http://localhost:3000/health
+
