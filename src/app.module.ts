@@ -12,6 +12,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { ExternalModule } from './external/external.module';
+import { CacheModule } from './cache/cache.module';
+import { LoggingModule } from './logging/logging.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { ExternalModule } from './external/external.module';
     UsersModule, 
     ProjectsModule, 
     TasksModule,
+    CacheModule,
+    LoggingModule,
 
     // 👇 Configuración GraphQL
     GraphQLModule.forRoot<ApolloDriverConfig>({
