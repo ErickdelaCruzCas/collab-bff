@@ -14,6 +14,8 @@ import { ProjectsService } from './projects.service';
 import { JwtAuthGuard } from '../auth/jwt.guard';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { CreateProjectDto } from './dto/create-project.dto';
+import { ChangeProjectOwnerDto } from './dto/change-project-owner.dto';
+import { AssignTaskDto } from './dto/assign-task.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('projects')
@@ -29,7 +31,7 @@ export class ProjectsController {
   @Get()
   findAll(@Req() req) {
     const ownerId = req.user.userId;
-    return this.projectsService.findAllByOwner(ownerId);
+    return this.projectsService.findAllByOwnerOrThrow(ownerId);
   }
 
   @Get(':id')
@@ -59,4 +61,19 @@ export class ProjectsController {
     const ownerId = req.user.userId;
     return this.projectsService.remove(ownerId, id);
   }
+
+  @Patch(':id/owner')
+  changeOwner(
+    @Req() req,
+    @Param('id', ParseIntPipe) projectId: number,
+    @Body() dto: ChangeProjectOwnerDto,
+  ) {
+    const currentUserId = req.user.userId;
+    return this.projectsService.changeOwner(currentUserId, projectId, dto);
+  }
+
+    @Post(':id/assign-task')
+    assignProject(@Param('id', ParseIntPipe) projectId: number, @Body() dto: AssignTaskDto) {
+      return this.projectsService.assignProjectToProject(projectId, dto.taskId);
+    }
 }

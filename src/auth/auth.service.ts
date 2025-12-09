@@ -13,13 +13,11 @@ export class AuthService {
 
   async validateUser(email: string, password: string) {
     Logger.log(`🔐 Autenticating user with email:${email}, and password: ${password}`, 'AuthService');
-    console.log(`🔐 Autenticating user with email:${email}, and password: ${password}`, 'AuthService');
   
     const user = await this.prisma.user.findUnique({
       where: { email },
     });
-    Logger.log(`🤷‍♀️ User Retrieved :${user}`, 'AuthService');
-    console.log(`🤷‍♀️ User Retrieved :${user}`, 'AuthService');
+    Logger.log(`🤷‍♀️ User Retrieved :${JSON.stringify(user)}`, 'AuthService');
     if (!user) throw new UnauthorizedException('Invalid credentials');
 
     const ok = await bcrypt.compare(password, user.password);

@@ -15,14 +15,6 @@ Content-Type: application/json
 GET http://localhost:3000/auth/me
 Authorization: Bearer {{token}}
 
-### Create one User
-POST http://localhost:3000/users
-Content-Type: application/json
-
-{
-  "email": "erick@rock.com",
-  "name": "Erick of the Castillian Cross"
-}
 
 ### Create project
 POST http://localhost:3000/projects
@@ -31,7 +23,16 @@ Content-Type: application/json
 
 {
   "name": "Marta & Erick",
-  "description": "First project managed by our Dubín"
+  "description": "First project managed by our Dublín"
+}
+
+### Cambiar owner del proyecto 1 al usuario 2
+PATCH http://localhost:3000/projects/4/owner
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "userId": 2
 }
 
 ### Get all projects
@@ -43,18 +44,15 @@ GET http://localhost:3000/projects/1
 Authorization: Bearer {{token}}
 
 ### Update project By Id
-PATCH http://localhost:3000/projects/1
+PATCH http://localhost:3000/projects/2
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "description": "Updated description"
+  "description": "Updated Dublin"
 }
 
 ### Delete project By Id
 DELETE http://localhost:3000/projects/1
 Authorization: Bearer {{token}}
-
-### Get health status
-GET http://localhost:3000/health
 

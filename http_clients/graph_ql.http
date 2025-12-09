@@ -1,0 +1,36 @@
+### 1 Login REST para obtener el token
+# @name login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "erick@rock.com",
+  "password": "password123"
+}
+
+### 2 Variable de token a partir de la respuesta
+@token = {{login.response.body.accessToken}}
+
+
+### 3 meWorkspace sin variables (tasksLimit por defecto)
+POST http://localhost:3000/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "query": "query { meWorkspace { me { id email name } projects { id name description } tasks { id title status projectId } } }"
+  
+}
+
+
+### 4 meWorkspace usando variables (ej: limitar tasks a 5)
+POST http://localhost:3000/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "query": "query MeWorkspace($limit: Int) { meWorkspace(tasksLimit: $limit) { me { id email } projects { id name } tasks { id title status } } }",
+  "variables": {
+    "limit": 5
+  }
+}

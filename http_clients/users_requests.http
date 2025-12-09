@@ -1,0 +1,42 @@
+### Login
+# @name login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "erick@rock.com",
+  "password": "password123"
+}
+
+### Token
+@token = {{login.response.body.accessToken}}
+
+### Get ME
+GET http://localhost:3000/auth/me
+Authorization: Bearer {{token}}
+
+
+### Get health status
+GET http://localhost:3000/health
+
+### Create one User
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "email": "erick@rock.com",
+  "name": "Erick of the Castillian Cross"
+}
+
+### Get one User By Id
+GET http://localhost:3000/users
+Content-Type: application/json
+
+### Asign Users to a task
+POST http://localhost:3000/users/3/assign-project
+Content-Type: application/json
+
+{
+  "projectId": 4
+}
+

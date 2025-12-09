@@ -1,0 +1,60 @@
+### Login
+# @name login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "erick@rock.com",
+  "password": "password123"
+}
+
+### Token
+@token = {{login.response.body.accessToken}}
+
+### Crear proyecto
+POST http://localhost:3000/projects
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Collab Project",
+  "description": "Project to test tasks"
+}
+
+# Supongamos que la respuesta tiene "id": 1 → úsalo como projectId
+
+### Crear tarea
+POST http://localhost:3000/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "projectId": 3,
+  "title": "Hacer lasaña",
+  "description": "COn exceso de quesito"
+}
+
+### Listar tareas (por proyecto, paginadas)
+GET http://localhost:3000/tasks?projectId=1&limit=10&offset=0
+Authorization: Bearer {{token}}
+
+### Listar tareas filtrando por estado
+GET http://localhost:3000/tasks?projectId=1&status=TODO
+Authorization: Bearer {{token}}
+
+### Ver detalle de una tarea
+GET http://localhost:3000/tasks/6
+Authorization: Bearer {{token}}
+
+### Actualizar tarea
+PATCH http://localhost:3000/tasks/3
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "IN_PROGRESS"
+}
+
+### Borrar tarea
+DELETE http://localhost:3000/tasks/1
+Authorization: Bearer {{token}}

@@ -1,0 +1,33 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Query {
+  meWorkspace(tasksLimit: Int): Workspace!
+}
+
+type Workspace {
+  me: WorkspaceUser!
+  projects: [WorkspaceProject!]!
+  tasks: [WorkspaceTask!]!
+}
+
+type WorkspaceProject {
+  description: String
+  id: Int!
+  name: String!
+}
+
+type WorkspaceTask {
+  description: String
+  id: Int!
+  projectId: Int!
+  status: String!
+  title: String!
+}
+
+type WorkspaceUser {
+  email: String!
+  id: Int!
+  name: String
+}
