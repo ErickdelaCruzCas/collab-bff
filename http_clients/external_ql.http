@@ -12,11 +12,20 @@ Content-Type: application/json
 @token = {{login.response.body.accessToken}}
 
 
-### 3 meWorkspace sin variables (tasksLimit por defecto)
+### 3 get Schemas
 POST http://localhost:3000/graphql
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "query": "query { meWorkspace { me { id email name } projects { id name description } tasks { id title status projectId } } }"
+  "query": "query { __schema { queryType { fields { name } } } }"
+}
+
+### 3 get External
+POST http://localhost:3000/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "query": "query { externalDashboard { coffees { title } beers { name } characters { name } } }"
 }

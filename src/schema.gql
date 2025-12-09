@@ -2,14 +2,44 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type ExternalBeer {
+  id: String
+  name: String!
+  style: String
+}
+
+type ExternalCharacter {
+  id: String
+  name: String!
+  species: String
+}
+
+type ExternalCoffee {
+  id: String
+  title: String!
+}
+
+type ExternalDashboard {
+  beers: [ExternalBeer!]!
+  characters: [ExternalCharacter!]!
+  coffees: [ExternalCoffee!]!
+  errors: [ExternalError!]!
+}
+
+type ExternalError {
+  message: String!
+  service: String!
+}
+
 type Query {
-  meWorkspace(tasksLimit: Int): Workspace!
+  externalDashboard: ExternalDashboard!
+  meWorkspace: Workspace!
 }
 
 type Workspace {
   me: WorkspaceUser!
   projects: [WorkspaceProject!]!
-  tasks: [WorkspaceTask!]!
+  tasks(limit: Int, offset: Int): [WorkspaceTask!]!
 }
 
 type WorkspaceProject {

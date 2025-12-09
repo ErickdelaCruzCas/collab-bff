@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TaskStatus } from '@prisma/client';
@@ -35,6 +35,8 @@ export class TasksService {
   }
 
   async findAll(ownerId: number, query: ListTasksQueryDto) {
+    Logger.log(`Calling findAll Taks`);
+    
     const { projectId, status } = query;
     const take = query.limit ?? 20;
     const skip = query.offset ?? 0;

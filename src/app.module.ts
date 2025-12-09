@@ -11,6 +11,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { WorkspaceModule } from './workspace/workspace.module';
+import { ExternalModule } from './external/external.module';
 
 @Module({
   imports: [
@@ -27,7 +28,7 @@ import { WorkspaceModule } from './workspace/workspace.module';
       sortSchema: true,
       context: ({ req }) => ({ req }), // importante para JWT en GraphQL
     }),
-
+    ExternalModule,
     WorkspaceModule, // nuestro módulo de GraphQL para meWorkspace
   ],
   controllers: [AppController],

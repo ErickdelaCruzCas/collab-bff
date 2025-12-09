@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { PrismaService } from 'prisma/prisma.service';
@@ -25,6 +25,8 @@ export class ProjectsService {
       where: { ownerId },
       orderBy: { createdAt: 'desc' },
     });
+    Logger.log(`Calling findAll Projects`);
+    
     if (!projects) {
       throw new NotFoundException('User not found');
     }
